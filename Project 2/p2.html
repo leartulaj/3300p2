@@ -1,3 +1,4 @@
+
 <!-- 
 3310 Project 2
 -->
@@ -15,34 +16,34 @@
 	<!-- Google Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
 	<style>
-	.d3-tip {
-		line-height: 1;
-		font-weight: bold;
-		padding: 12px;
-		background: rgba(0, 0, 0, 0.8);
-		color: #fff;
-		border-radius: 2px;
-	}
+		.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+}
 
-	/* Creates a small triangle extender for the tooltip */
-	.d3-tip:after {
-		box-sizing: border-box;
-		display: inline;
-		font-size: 10px;
-		width: 100%;
-		line-height: 1;
-		color: rgba(0, 0, 0, 0.8);
-		content: "\25BC";
-		position: absolute;
-		text-align: center;
-	}
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
 
-	/* Style northward tooltips differently */
-	.d3-tip.n:after {
-		margin: -1px 0 0 0;
-		top: 100%;
-		left: 0;
-	}
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
 	body{
 		background: #f6f6f6;
 		font-family: 'Open Sans Condensed', sans-serif;
@@ -57,11 +58,9 @@
 	h1#title{
 		font-size: 4em;
 	}
-
 	ul#factors_list{
 		list-style: none;
 	}
-
 	ul#factors_list li{
 		display: inline;
 		text-align: center;
@@ -70,13 +69,11 @@
 	li p{
 		font-size: 1.1em;
 	}
-
 	input[type=range]{
 		width: 75%;
 		margin-right: 12.5%;
 		margin-left: 12.5%;
 	}
-
 	.land {
 		fill: #989898;
 	}
@@ -85,35 +82,43 @@
 		stroke: #fff;
 		stroke-width: .5px;
 	}
-
 	.state-boundary {
 		fill: none;
 		stroke: #fff;
 	}
-
-	.background {
-		fill: none;
-		pointer-events: all;
+	
+.background {
+  fill: none;
+  pointer-events: all;
+}
+#states {
+  fill: #aaa;
+}
+#states .active {
+  fill: #989898;
+}
+#state-borders {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+#key{
+		list-style-type: none;
+		border: black 1px solid;
+		text-align: center;
+		background-color: white;
+		width: 100px;
+		font-size: 10pt;
+		margin-top: 15%;
+		padding: .5%;
 	}
-
-	#states {
-		fill: #aaa;
+	label.choice{
+		width: 100%;
 	}
-
-	#states .active {
-		fill: #989898;
-	}
-
-	#state-borders {
-		fill: none;
-		stroke: #fff;
-		stroke-width: 1.5px;
-		stroke-linejoin: round;
-		stroke-linecap: round;
-		pointer-events: none;
-	}
-
-	</style>
+</style>
 </head>
 <body>
 	<div id="heading">
@@ -156,9 +161,19 @@
 			</li>	
 		</ul>
 	</div>
-	<div id = "map" class = ></div>
+	<div id = "map" class = "row"> 
+	 	<svg id ="usmap"></svg>
+	 	<ul id = "key" class ="col-xs-2">
+				<li> <span class = "bold">KEY</span> </li>
+				<li> <span class = "bold">Color: </span>Rank</li>
+				<li id = "max">1</li>
+				<li id = "colorscale"></li>
+				<li>20<li>
+				
+			</ul>
+	 </div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-	<script src="greg2.js"></script>
-</body>
-</html>
+<script src="greg2.js"></script>
+ </body>
+ </html>
