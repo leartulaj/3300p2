@@ -1,17 +1,17 @@
+//Map
 var width = screen.width,  height = screen.width * (3/4), centered;
 
 var projection = d3.geo.albersUsa()
 .scale(width * .9)
 .translate([width / 2, height / 3]);
-projection=d3.geo.albersUsa();;
 
 var path = d3.geo.path()
 .projection(projection);
 
-var svg = d3.select("#map").append("svg")
+var svg = d3.select("#usmap")
 .attr("width", width)
 .attr("height", height)
-.attr("class", "col-xs-12");;
+.attr("class", "col-xs-10");;
 
 var longitude = [];
 var latitude = [];
@@ -22,6 +22,38 @@ svg.append("rect")
 .attr("width", width)
 .attr("height", height)
 .on("click", clicked);
+
+  //Key
+  var Keywidth = 10,
+    Keyheight = 200;
+  var key = d3.select("#colorscale").append("svg")
+    .attr("width", Keywidth)
+    .attr("height", Keyheight)
+    .attr("id", "colorscaleSVG");
+    
+    var gradient = d3.select("#colorscaleSVG").append("defs")
+    .append("linearGradient")
+    .attr("id", "gradient")
+    .attr("y1", "0%")
+    .attr("x1", "0%")
+    .attr("y2", "100%")
+    .attr("x2", "0%")
+    .attr("spreadMethod", "pad");
+
+  gradient.append("stop")
+    .attr("offset", "0%")
+    .attr("stop-color", "lightgreen")
+    .attr("stop-opacity", 1);
+    
+  gradient.append("stop")
+    .attr("offset", "100%")
+    .attr("stop-color", "red")
+    .attr("stop-opacity", 1);
+
+  d3.select("#colorscaleSVG").append("rect")
+    .attr("width", Keywidth)
+    .attr("height", Keyheight)
+    .style("fill", "url(#gradient)");
 
 var g = svg.append("g");
 
@@ -105,4 +137,6 @@ function clicked(d) {
   .duration(750)
   .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
   .style("stroke-width", 1.5 / k + "px");
+
+
 }
