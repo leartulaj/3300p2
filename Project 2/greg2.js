@@ -67,13 +67,13 @@ d3.json("us.json", function(error, us) {
       return ! isNaN(point.x) && ! isNaN(point.y);
     });
 
-    // var tip = d3.tip()
-    // .attr('class', 'd3-tip')
-    // .offset([-10, 0])
-    // .html(function(d) {
-    //   return  d.label;
-    // });
-    // g.call(tip);
+    var tip = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([-10, 0])
+    .html(function(d) {
+      return  d.label;
+    });
+    g.call(tip);
 
     circles = g.selectAll(".point").data(points);
 
@@ -85,17 +85,8 @@ d3.json("us.json", function(error, us) {
     .style("fill","green")
     .style("opacity", 0.7)
     .attr("transform","translate(" + zoomTranslate + ")scale(" + zoomScale + ")")
-    .on('mouseover',function(){
-        circles.enter().append("text")
-          .text(function(d){return d.label;})
-          .attr("x", function(d){return projection(d.x-10);})
-          .attr("y", function(d){return projection(d.y);})
-          .style("font-size", "20px")
-          .style("font-family","Cinzel")
-          .attr("stroke","black");
-      });
-    // .on("mouseover",tip.show)
-    // .on("mouseout", tip.hide);
+    .on("mouseover",tip.show)
+    .on("mouseout", tip.hide);
   });
 });
 d3.select("#center").on("click", function () {
