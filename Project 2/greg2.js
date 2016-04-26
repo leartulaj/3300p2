@@ -1,3 +1,11 @@
+//key
+var Keywidth = 100,
+    Keyheight = 10;
+  var key = d3.select("#colorscale").append("svg")
+    .attr("width", Keywidth)
+    .attr("height", Keyheight)
+    .attr("id", "colorscaleSVG");
+
 var width = screen.width,  height = screen.width * (3/4);
 
 var projection = d3.geo.albersUsa()
@@ -111,7 +119,7 @@ d3.json("us.json", function(error, us) {
     .style("opacity", 0.7)
     // .attr("transform","translate(" + zoomTranslate + ")scale(" + zoomScale + ")")
     .on("mouseover", function (d) {
-      d3.select("#key").html(d.label+'<li>Tuition: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>');
+      d3.select("#sidebar").html(d.label+'<li>Tuition: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>');
     });
 });
 });
