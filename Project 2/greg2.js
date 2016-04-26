@@ -286,13 +286,13 @@ var nextQuestion = function(num)
   for (var i = 0; i < choices.length; i++) 
   {
     var choice = choices[i];
+    //console.log(choice);
     var label = quiz.append("label").attr("class", "choice");
-    var input = label.append("input").attr("type", "radio").attr("name", question["topic"]).attr("value", i)
-
-    .on("click", function() 
+    var input = label.append("input").attr("type", "radio").attr("name", question["topic"]).attr("value", [choice.min, choice.max]  + "")
+    .on("click", function(e, idx) 
     {
-      console.log(choice);
-      choicesArray.push(choice); 
+      //choicesArray.push(choices[idx]);
+      choicesArray.push([d3.select(this).attr("value")]); 
       if (num < questions.length-1)
         nextQuestion(num+1);
       else{
@@ -303,7 +303,9 @@ var nextQuestion = function(num)
     });
     var string = choice.min + " to " + choice.max;
     label.append("span").html(string);
-
   }
+  return choicesArray;
 };
+
+console.log(choicesArray); 
 //Quiz End
