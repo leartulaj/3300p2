@@ -1,10 +1,81 @@
-//key
+//QUIZ 
+var questions =       [{ 
+                  "question" : "What is your desired school size?", 
+                  "choices" : [0, 1, 2, 3, 4 ],
+                  "topic": "schoolsize"
+              }, 
+              {
+                  "question" : "What is your desired student-staff Ratio?", 
+                  "choices" : [5, 6, 7, 8, 9],
+                  "topic": "studentstaffratio"
+              }, 
+              {
+                  "question" : "What is your desired female-male Ratio?", 
+                  "choices" : [10, 11, 12, 13, 14],
+                  "topic": "femalemaleratio"
+              }, 
+              {
+                  "question" : "What do you approximate to be the most you will be able to pay after financial aid is awarded?", 
+                  "choices" : [15, 16, 17, 18, 19],
+                  "topic": "tuition"
+              }, 
+              {
+                  "question" : "How selective do you want your desired school to be?", 
+                  "choices" : [15, 16, 17, 18, 19],
+                  "topic": "selective"
+              }, 
+              {
+                  "question" : "How research intensive do you want your desired school to be?", 
+                  "choices" : [15, 16, 17, 18, 19],
+                  "topic": "research"
+              }
+
+              ];
+
+var choicesArray = [];
+
+var nextQuestion = function(num) 
+    {
+  var quiz = d3.select("#quiz");
+  var question = questions[num];
+  var choices = question["choices"];
+
+  quiz.html("");
+  console.log(question); 
+  quiz.append("div").attr("id", num + "").html(question["question"]);
+
+  for (var i = 0; i < choices.length; i++) 
+    {
+      var choice = choices[i];
+      console.log(choice);
+      var label = quiz.append("label").attr("class", "choice");
+      var input = label.append("input").attr("type", "radio").attr("name", question["topic"]).attr("value", i);
+      
+      input.on("click", function() {
+        choicesArray.push(choice); 
+            if (num < questions.length-1)
+              nextQuestion(num+1);
+          else{
+            document.getElementById("quizFinished").style.display = "block";
+            quiz.html("");
+            }
+
+      });
+      console.log(choicesArray);
+      label.append("span").html(choice);
+      
+    }
+  };
+//Quiz End
+
+//KEY
 var Keywidth = 100,
     Keyheight = 10;
   var key = d3.select("#colorscale").append("svg")
     .attr("width", Keywidth)
     .attr("height", Keyheight)
     .attr("id", "colorscaleSVG");
+//Key End
 
 var width = screen.width,  height = screen.width * (3/4);
 

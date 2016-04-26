@@ -140,6 +140,19 @@
 		.inline{
 			display: inline-block;
 		}
+
+		/* QUIZ CSS */
+	div#quiz{
+		font-size: 1.5em;
+		margin-left: 5%;
+	}
+	div#quizFinished{
+		display: none;
+	}
+
+	a:link{
+		text-decoration: none;
+	}
 </style>
 </head>
 <body>
@@ -148,6 +161,13 @@
 		<p>Add description of project here.</p>
 		<h2>Which Factors Matter To You Most?</h2>
 	</div>
+
+	<!-- Inspired By Which City Should You Live In? project -->
+<div id = "quiz" class = "col-xs-12">
+	<a href = "#" onclick="nextQuestion(0); return false;">Start Choosing Prefrences</a>
+</div>
+
+<div id  = "quizFinished">
 
 	<div id = "factors">
 		<ul id = "factors_list">
@@ -193,6 +213,8 @@
 	 	<ul id = "sidebar" class ="col-xs-2">
 		</ul>
 	 </div>
+
+</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script src="greg2.js"></script>
