@@ -44,115 +44,120 @@
   top: 100%;
   left: 0;
 }*/
-	body{
-		background: #f6f6f6;
-		font-family: 'Open Sans Condensed', sans-serif;
-	}
-	#heading{
-		margin-left: 5%;
-	}
-	#heading p{
-		color: #6F6F6F;
-		font-size: 1.5em;
-	}
-	h1#title{
-		font-size: 4em;
-	}
-	ul#factors_list{
-		list-style: none;
-	}
-	ul#factors_list li{
-		display: inline;
-		text-align: center;
-		font-weight: bold;
-	}
-	li p{
-		font-size: 1.1em;
-	}
-	input[type=range]{
-		width: 75%;
-		margin-right: 12.5%;
-		margin-left: 12.5%;
-	}
-	.land {
-		fill: #989898;
-	}
-	.county-boundary {
-		fill: none;
-		stroke: #fff;
-		stroke-width: .5px;
-	}
-	.state-boundary {
-		fill: none;
-		stroke: #fff;
-	}
-	
+body{
+	background: #f6f6f6;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+#heading{
+	margin-left: 5%;
+}
+#heading p{
+	color: #6F6F6F;
+	font-size: 1.5em;
+}
+h1#title{
+	font-size: 4em;
+}
+ul#factors_list{
+	list-style: none;
+}
+ul#factors_list li{
+	display: inline;
+	text-align: center;
+	font-weight: bold;
+}
+li p{
+	font-size: 1.1em;
+}
+input[type=range]{
+	width: 75%;
+	margin-right: 12.5%;
+	margin-left: 12.5%;
+}
+.land {
+	fill: #989898;
+}
+.county-boundary {
+	fill: none;
+	stroke: #fff;
+	stroke-width: .5px;
+}
+.state-boundary {
+	fill: none;
+	stroke: #fff;
+}
+
 .background {
-  fill: none;
-  pointer-events: all;
+	fill: none;
+	pointer-events: all;
 }
 #states {
-  fill: #aaa;
+	fill: #aaa;
 }
 #states .active {
-  fill: #989898;
+	fill: #989898;
 }
 #state-borders {
-  fill: none;
-  stroke: #fff;
-  stroke-width: 1.5px;
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  pointer-events: none;
+	fill: none;
+	stroke: #fff;
+	stroke-width: 1.5px;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+	pointer-events: none;
 }
 #sidebar{
-		list-style-type: none;
-		border: black 1px solid;
-		text-align: center;
-		background-color: white;
-		width: 200px;
-		font-size: 10pt;
-		margin-top: 15%;
-		padding: .5%;
-	}
-	label.choice{
-		width: 100%;
-	}
+	list-style-type: none;
+	border: black 1px solid;
+	text-align: center;
+	background-color: white;
+	width: 200px;
+	font-size: 10pt;
+	margin-top: 15%;
+	padding: .5%;
+}
+label.choice{
+	width: 100%;
+}
 
-	/*legend*/
-		#legend {
-		    border: black 1px solid;
-		    text-align: center;
-		    background-color: white;
-		    width: 250px;
-		    font-size: 12pt;
-		    margin-top: 10%;
-		    padding: 1%;
-		    height: 150px;
-		}
+/*legend*/
+#legend {
+	border: black 1px solid;
+    text-align: center;
+    background-color: white;
+    width: 140px;
+    font-size: 9pt;
+    height: 70px;
+    top: 100%;
+    z-index: 1000;
+    position: absolute;
+    right: 10%;
+}
+p {
+    margin: 0 0 0px;
+}
 
-		span#colorscale{
-		    background: linear-gradient(-90deg, #43FF43, rgb(255, 0, 0));
-		    height: 10; 
-		    width: 100;
-		}
+span#colorscale{
+	background: linear-gradient(-90deg, #43FF43, rgb(255, 0, 0));
+	height: 10; 
+	width: 100;
+}
 
-		.inline{
-			display: inline-block;
-		}
+.inline{
+	display: inline-block;
+}
 
-		/* QUIZ CSS */
-	div#quiz{
-		font-size: 1.5em;
-		margin-left: 5%;
-	}
-	div#quizFinished{
-		display: none;
-	}
+/* QUIZ CSS */
+div#quiz{
+	font-size: 1.5em;
+	margin-left: 5%;
+}
+div#quizFinished{
+	display: none;
+}
 
-	a:link{
-		text-decoration: none;
-	}
+a:link{
+	text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -163,60 +168,60 @@
 	</div>
 
 	<!-- Inspired By Which City Should You Live In? project -->
-<div id = "quiz" class = "col-xs-12">
-	<a href = "#" onclick="nextQuestion(0); return false;">Start Choosing Prefrences</a>
-</div>
-
-<div id  = "quizFinished">
-
-	<div id = "factors">
-		<ul id = "factors_list">
-			<li class = "col-xs-2">
-				<p>School Size (In Thousands)</p>
-				<input id = "schoolsizeSlider" type="range" >
-				<p id = "schoolsize"></p>
-			</li>
-			<li class = "col-xs-2" >
-				<p>Student-Staff Ratio</p>
-				<input id = "staffratioSlider" type="range" >
-				<p id = "staffratio"></p>
-			</li>
-			<li class = "col-xs-2" >
-				<p>Female-Male Ratio</p>
-				<input id = "femaleratioSlider" type="range" >
-				<p id = "femaleratio"></p>
-			</li>
-			<li class = "col-xs-2" >
-				<p>ROI</p>
-				<input id = "roiSlider" type="range" >
-				<p id = "roi"></p>
-			</li>
-			<li class = "col-xs-2" >
-				<p>Selectivity</p>
-				<input id = "selectivitySlider" type="range" >
-				<p id = "selectivity"></p>
-			</li>
-			<li class = "col-xs-2" >
-				<p>Research</p>
-				<input id = "researchSlider" type="range" >
-				<p id = "research"></p>
-			</li>	
-		</ul>
+	<div id = "quiz" class = "col-xs-12">
+		<a href = "#" onclick="nextQuestion(0); return false;">Start Choosing Prefrences</a>
 	</div>
-	<div id = "legend">
-				<p> <span class = "bold">KEY</span> </p>
-				<p> <span class = "bold">Color: </span>Rank</p>
-				<p>20 <span id = "colorscale" class = "inline"></span> 1</p>			
-		</div>
-	<div id = "map" class = "row"> 
-	 	<svg id ="usmap"></svg>
-	 	<ul id = "sidebar" class ="col-xs-2">
-		</ul>
-	 </div>
 
-</div>
+	<div id  = "quizFinished">
+
+		<div id = "factors">
+			<ul id = "factors_list">
+				<li class = "col-xs-2">
+					<p>School Size (In Thousands)</p>
+					<input id = "schoolsizeSlider" type="range" >
+					<p id = "schoolsize"></p>
+				</li>
+				<li class = "col-xs-2" >
+					<p>Student-Staff Ratio</p>
+					<input id = "staffratioSlider" type="range" >
+					<p id = "staffratio"></p>
+				</li>
+				<li class = "col-xs-2" >
+					<p>Female-Male Ratio</p>
+					<input id = "femaleratioSlider" type="range" >
+					<p id = "femaleratio"></p>
+				</li>
+				<li class = "col-xs-2" >
+					<p>ROI</p>
+					<input id = "roiSlider" type="range" >
+					<p id = "roi"></p>
+				</li>
+				<li class = "col-xs-2" >
+					<p>Selectivity</p>
+					<input id = "selectivitySlider" type="range" >
+					<p id = "selectivity"></p>
+				</li>
+				<li class = "col-xs-2" >
+					<p>Research</p>
+					<input id = "researchSlider" type="range" >
+					<p id = "research"></p>
+				</li>	
+			</ul>
+		</div>
+		<div id = "legend">
+			<p> <span class = "bold">KEY</span> </p>
+			<p> <span class = "bold">Color: </span>Rank</p>
+			<p>20 <span id = "colorscale" class = "inline"></span> 1</p>			
+		</div>
+		<div id = "map" class = "row"> 
+			<svg id ="usmap"></svg>
+			<ul id = "sidebar" class ="col-xs-2">
+			</ul>
+		</div>
+
+	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<script src="greg2.js"></script>
- </body>
- </html>
+	<script src="greg2.js"></script>
+</body>
+</html>
