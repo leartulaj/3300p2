@@ -6,8 +6,8 @@ var femalemale = [];
 var adminrate = [];
 var research = [];
 var tuition = [];
-var rank = [];
-var quizArray = [numstudents, studentstaff, femalemale, tuition, adminrate, research,schoolname,rank];
+var ranks = [];
+var quizArray = [numstudents, studentstaff, femalemale, tuition, adminrate, research,schoolname,ranks];
 
 //Helper Functions for Quiz
     function getMaxOfArray(numArray) {
@@ -199,9 +199,7 @@ d3.json("us.json", function(error, us) {
 
   
     //Quiz End
-
-
-
+    var spectrum = d3.scale.linear().domain([48000000,135000000]).range(["#072C03","#2BFF10"]);
 
     circles = g.selectAll(".point").data(points);
 
@@ -238,25 +236,24 @@ d3.json("us.json", function(error, us) {
 
 //QUIZ
 
-prefs=[5,5,5,5,5,5]
-d3.select("#schoolsizeSlider").call(d3.slider().on("slide",function(evt, value) {
-  pref[0] = value;
-}));
-d3.select("#staffratioSlider").call(d3.slider().on("slide",function(evt, value) {
-  pref[1] = value;
-}));
-d3.select("#femaleratioSlider").call(d3.slider().on("slide",function(evt, value) {
-  pref[2]=value;
-}));
-d3.select("#tuitionSlider").call(d3.slider().on("slide",function(evt, value) {
-  pref[3] = value;
-}));
-d3.select("#selectivitySlider").call(d3.slider().on("slide",function(evt, value) {
-  pref[4] = value;
-}));
-d3.select("#researchSlider").call(d3.slider().on("slide",function(evt,value) {
-  pref[5]=value;
-}));
+// d3.select("#schoolsizeSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
+//   pref[0] = value;
+// }));
+// d3.select("#staffratioSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
+//   pref[1] = value;
+// }));
+// d3.select("#femaleratioSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
+//   pref[2]=value;
+// }));
+// d3.select("#tuitionSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
+//   pref[3] = value;
+// }));
+// d3.select("#selectivitySlider").call(d3.slider().on("slide",function(evt, value) {
+//   pref[4] = value;
+// }));
+// d3.select("#researchSlider").call(d3.slider().on("slide",function(evt,value) {
+//   pref[5]=value;
+// }));
 
 
 var choicesArray = [];
@@ -308,3 +305,42 @@ var nextQuestion = function(num)
 
 console.log(choicesArray); 
 //Quiz End
+pref=[5,5,5,5,5,5]
+function rankings(){
+  ranks=[];
+  for (var i=0;i<tuition.length;i++){
+    var comp=[(Math.abs(numstudents[i]-(parseInt(choicesArray[0][0].split(",")[0])+parseInt(choicesArray[0][0].split(",")[1])/2))/Math.max.apply(null, numstudents)),(Math.abs(studentstaff[i]-(choicesArray[1][0].split(",")[0])+parseInt(choicesArray[1][0].split(",")[1])/2)/Math.max.apply(null, studentstaff)),(Math.abs(femalemale[i]-(parseInt(choicesArray[2][0].split(",")[0])+parseInt(choicesArray[2][0].split(",")[1])/2))/Math.max.apply(null, femalemale)),(Math.abs(tuition[i]-(parseInt(choicesArray[3][0].split(",")[0])+parseInt(choicesArray[3][0].split(",")[1])/2))/Math.max.apply(null, tuition)),(Math.abs(adminrate[i]-(parseInt(choicesArray[4][0].split(",")[0])+parseInt(choicesArray[4][0].split(",")[1])/2))/Math.max.apply(null, adminrate)),(Math.abs(research[i]-(parseInt(choicesArray[5][0].split(",")[0])+parseInt(choicesArray[5][0].split(",")[1])/2))/Math.max.apply(null, research))];
+    for (var j=0;j<6;j++){
+      var sum=0;
+      comp[j]=comp[j]*pref[j];
+      sum+=comp[j];
+    };
+    ranks.push(sum);
+  };
+};
+
+document.getElementById('schoolsizeSlider').addEventListener('change', function(){
+  pref[0]=parseInt(this.value);
+  rankings();
+});
+document.getElementById('staffratioSlider').addEventListener('change', function(){
+  pref[1]=parseInt(this.value);
+  rankings();
+});
+document.getElementById('femaleratioSlider').addEventListener('change', function(){
+  pref[2]=parseInt(this.value);
+  rankings();
+});
+document.getElementById('tuitionSlider').addEventListener('change', function(){
+  pref[3]=parseInt(this.value);
+  rankings();
+});
+document.getElementById('selectivitySlider').addEventListener('change', function(){
+  pref[4]=parseInt(this.value);
+  rankings();
+});
+document.getElementById('researchSlider').addEventListener('change', function(){
+  pref[5]=parseInt(this.value);
+  rankings();
+});
+
