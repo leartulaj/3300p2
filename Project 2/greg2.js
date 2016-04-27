@@ -303,7 +303,6 @@ var nextQuestion = function(num)
   return choicesArray;
 };
 
-console.log(choicesArray); 
 //Quiz End
 pref=[5,5,5,5,5,5]
 function rankings(){
