@@ -11,6 +11,7 @@
 	<!-- D3  -->
 	<script src="http://d3js.org/d3.v3.min.js"></script>
 	<script src="http://d3js.org/topojson.v1.min.js"></script>
+	<script src ="d3.slider.js"></script>
 	<!-- BOOTSTRAP  -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<!-- Google Fonts -->
@@ -178,32 +179,32 @@ a:link{
 			<ul id = "factors_list">
 				<li class = "col-xs-2">
 					<p>School Size (In Thousands)</p>
-					<input id = "schoolsizeSlider" type="range" >
+					<input id = "schoolsizeSlider" type="range" min="0" max="10" value="5" step="1">
 					<p id = "schoolsize"></p>
 				</li>
 				<li class = "col-xs-2" >
 					<p>Student-Staff Ratio</p>
-					<input id = "staffratioSlider" type="range" >
+					<input id = "staffratioSlider" type="range" min="0" max="10" value="5" step="1">
 					<p id = "staffratio"></p>
 				</li>
 				<li class = "col-xs-2" >
 					<p>Female-Male Ratio</p>
-					<input id = "femaleratioSlider" type="range" >
+					<input id = "femaleratioSlider" type="range" min="0" max="10" value="5" step="1">
 					<p id = "femaleratio"></p>
 				</li>
 				<li class = "col-xs-2" >
-					<p>ROI</p>
-					<input id = "roiSlider" type="range" >
+					<p>Tuition</p>
+					<input id = "tuitionSlider" type="range" min="0" max="10" value="5" step="1">
 					<p id = "roi"></p>
 				</li>
 				<li class = "col-xs-2" >
 					<p>Selectivity</p>
-					<input id = "selectivitySlider" type="range" >
+					<input id = "selectivitySlider" type="range" min="0" max="10" value="5" step="1">
 					<p id = "selectivity"></p>
 				</li>
 				<li class = "col-xs-2" >
 					<p>Research</p>
-					<input id = "researchSlider" type="range" >
+					<input id = "researchSlider" type="range" min="0" max="10" value="5" step="1">
 					<p id = "research"></p>
 				</li>	
 			</ul>

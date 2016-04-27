@@ -1,11 +1,13 @@
 //Quiz
+var schoolname = [];
 var numstudents = [];
 var studentstaff = [];
 var femalemale = [];
 var adminrate = [];
 var research = [];
 var tuition = [];
-var quizArray = [numstudents, studentstaff, femalemale, tuition, adminrate, research];
+var rank = [];
+var quizArray = [numstudents, studentstaff, femalemale, tuition, adminrate, research,schoolname,rank];
 
 //Helper Functions for Quiz
     function getMaxOfArray(numArray) {
@@ -143,6 +145,7 @@ d3.json("us.json", function(error, us) {
 
     //Quiz
     points.forEach(function(school) {
+      schoolname.push(school.label);
       research.push(school.research);
       numstudents.push(school.population);
       studentstaff.push(school.studentstaffratio);
@@ -153,7 +156,7 @@ d3.json("us.json", function(error, us) {
 
     var answers = [];
 
-    for(var i = 0; i < quizArray.length; i++)
+    for(var i = 0; i < quizArray.length-2; i++)
     {
       answers.push([]);
       var max = getMaxOfArray(quizArray[i]);
@@ -234,6 +237,26 @@ d3.json("us.json", function(error, us) {
 // });
 
 //QUIZ
+
+prefs=[5,5,5,5,5,5]
+d3.select("#schoolsizeSlider").call(d3.slider().on("slide",function(evt, value) {
+  pref[0] = value;
+}));
+d3.select("#staffratioSlider").call(d3.slider().on("slide",function(evt, value) {
+  pref[1] = value;
+}));
+d3.select("#femaleratioSlider").call(d3.slider().on("slide",function(evt, value) {
+  pref[2]=value;
+}));
+d3.select("#tuitionSlider").call(d3.slider().on("slide",function(evt, value) {
+  pref[3] = value;
+}));
+d3.select("#selectivitySlider").call(d3.slider().on("slide",function(evt, value) {
+  pref[4] = value;
+}));
+d3.select("#researchSlider").call(d3.slider().on("slide",function(evt,value) {
+  pref[5]=value;
+}));
 
 
 var choicesArray = [];
