@@ -177,7 +177,7 @@ d3.json("us.json", function(error, us) {
 
 
     //Create JSON
-    var questionsArray = ["What is your desired school size?", "What is your desired student-staff Ratio?", "What is your desired female-male Ratio?", "What do you approximate to be the most you will be able to pay after financial aid is awarded?", "How selective do you want your desired school to be?", "How research intensive do you want your desired school to be?" ];
+    var questionsArray = ["What is your desired school size?", "What is your desired student-staff Ratio?", "What is your desired female-male Ratio?", "What do you approximate to be the most you will be able to pay after financial aid is awarded?", "How selective do you want your desired school to be based on admission rate?", "How research intensive do you want your desired school to be?" ];
     var topicArray = ["schoolsize", "studentstaffratio", "femalemaleratio", "tuition", "selective", "research" ]
     var json = "[";
     for(var i = 0; i < answers.length; i++ )
@@ -233,43 +233,6 @@ d3.json("us.json", function(error, us) {
 
 // });
 
-//QUIZ 
-
-/*
-var questions =       [{ 
-  "question" : "What is your desired school size?", 
-  "choices" : [ {value: 1, min: 1, max: 2}, {value: 2, min: 1, max: 2}, {value: 3, min: 1, max: 2}, {value: 4, min: 1, max: 2}, {value: 5, min: 1, max: 2} ],
-  "topic": "schoolsize"
-              } , 
-              {
-                  "question" : "What is your desired student-staff Ratio?", 
-                  "choices" : [5, 6, 7, 8, 9],
-                  "topic": "studentstaffratio"
-              }, 
-              {
-                  "question" : "What is your desired female-male Ratio?", 
-                  "choices" : [10, 11, 12, 13, 14],
-                  "topic": "femalemaleratio"
-              }, 
-              {
-                  "question" : "What do you approximate to be the most you will be able to pay after financial aid is awarded?", 
-                  "choices" : [15, 16, 17, 18, 19],
-                  "topic": "tuition"
-              }, 
-              {
-                  "question" : "How selective do you want your desired school to be?", 
-                  "choices" : [15, 16, 17, 18, 19],
-                  "topic": "selective"
-              }, 
-              {
-                  "question" : "How research intensive do you want your desired school to be?", 
-                  "choices" : [15, 16, 17, 18, 19],
-                  "topic": "research"
-              }
-              
-
-              ];
-              */
 //QUIZ
 
 
@@ -286,9 +249,8 @@ var nextQuestion = function(num)
   for (var i = 0; i < choices.length; i++) 
   {
     var choice = choices[i];
-    //console.log(choice);
     var label = quiz.append("label").attr("class", "choice");
-    var input = label.append("input").attr("type", "radio").attr("name", question["topic"]).attr("value", [choice.min, choice.max]  + "")
+    var input = label.append("input").attr("type", "radio").attr("name", question["topic"]).attr("value", [choice.min, choice.max, i]  + "")
     .on("click", function(e, idx) 
     {
       //choicesArray.push(choices[idx]);
@@ -302,7 +264,21 @@ var nextQuestion = function(num)
 
     });
     var string = choice.min + " to " + choice.max;
-    label.append("span").html(string);
+    if(num == 1){
+        //formating for student-teacher ratios
+        var subtring = string.split(/ /);
+        label.append("span").html(" " + subtring[0] + ":1 " + subtring[1] + " " + subtring[2] + ":1 "  ); //prints choice
+    }
+    else if(num == 2){
+      //formating for female-male ratios
+      var subtring = string.split(/ /);
+      var maleratioone = 100 - Number(subtring[0]); 
+      var maleratiotwo = 100 - Number(subtring[2]); 
+      label.append("span").html(" " + subtring[0] + ":" + maleratioone + " " + subtring[1] + " " + subtring[2] + ":" + maleratiotwo ); //prints choice
+    }
+    else{
+        label.append("span").html(" " + string); //prints choice
+    }
   }
   return choicesArray;
 };
