@@ -210,7 +210,7 @@ d3.json("us.json", function(error, us) {
     .attr("cx", function(d) { var coords=projection([d.x,d.y]);return coords[0]; })
     .attr("cy", function(d) { var coords=projection([d.x,d.y]);return coords[1]; })
     .attr("r", 4)
-    .style("fill","green")
+    .style("fill","#43FF43")
     .style("opacity", 0.7)
     // .attr("transform","translate(" + zoomTranslate + ")scale(" + zoomScale + ")")
     .on("mouseover", function (d) {
@@ -344,7 +344,7 @@ function rankings(){
     //console.log(cir);
     circle=d3.select(this);
     circle.transition().style("fill", function(d){
-     var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["red","#43FF43"]);
+     var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["#43FF43","rgb(255, 0, 0)"]);
        return spectrum(ranks[i]);
    });
  });
