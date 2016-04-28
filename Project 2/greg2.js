@@ -270,6 +270,8 @@ function rankings(){
       comp[j]=(comp[j]*pref[j]);
       sum+=comp[j];
     };
+    //add score to points array
+    points[i].score = sum;
     ranks.push(sum);
   };
   circles = g.selectAll(".point");
