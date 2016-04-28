@@ -27,7 +27,7 @@ var key = d3.select("#colorscale").append("svg")
 .attr("id", "colorscaleSVG");
 //Key End
 
-var width = screen.width,  height = screen.width * (3/4);
+var width = screen.width,  height = screen.width * (3/4), centered;
 
 var projection = d3.geo.albersUsa()
 .scale(width * .9)
@@ -35,68 +35,36 @@ var projection = d3.geo.albersUsa()
 
 var path = d3.geo.path()
 .projection(projection);
-// var zoom = d3.behavior.zoom()
-//   .translate([0,0])
-//   .scale(1)
-//   .scaleExtent([1,8])
-//   .on("zoom", zoomed);
+var zoom = d3.behavior.zoom()
+  .translate([0,0])
+  .scale(1)
+  .scaleExtent([1,15])
+  .on("zoom", zoomed);
 
 
-// var zoomTranslate = [0,0];
-// var zoomScale = 1;
-// function zoomed() {
-//   zoomTranslate = d3.event.translate;
-//   svg.selectAll("circle").attr("transform","translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-//   zoomScale = d3.event.scale;
-//   svg.selectAll("path").attr("transform","translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-//   svg.selectAll(".legend").attr("transform","translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-
-// }
+var zoomTranslate = [0,0];
+var zoomScale = 1;
+function zoomed() {
+  zoomTranslate = d3.event.translate;
+  svg.selectAll("circle").attr("transform","translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+  zoomScale = d3.event.scale;
+  svg.selectAll("path").attr("transform","translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+  svg.selectAll(".legend").attr("transform","translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+}
 
 var svg = d3.select("#usmap")
 .attr("width", width)
 .attr("height", height)
-.attr("class", "col-xs-10");
-// .call(zoom);
+.attr("class", "col-xs-10")
+.call(zoom);
 
-// svg.append("rect")
-// .attr("class", "background")
-// .attr("width", width)
-// .attr("height", height);
+svg.append("rect")
+.attr("class", "background")
+.attr("width", width)
+.attr("height", height);
 
 var g = svg.append("g");
 var points;
-
-// var Keywidth = 10,
-//     Keyheight = 200;
-//   var key = d3.select("#colorscale").append("svg")
-//     .attr("width", Keywidth)
-//     .attr("height", Keyheight)
-//     .attr("id", "colorscaleSVG");
-
-//     var gradient = d3.select("#colorscaleSVG").append("defs")
-//     .append("linearGradient")
-//     .attr("id", "gradient")
-//     .attr("y1", "0%")
-//     .attr("x1", "0%")
-//     .attr("y2", "100%")
-//     .attr("x2", "0%")
-//     .attr("spreadMethod", "pad");
-
-//   gradient.append("stop")
-//     .attr("offset", "0%")
-//     .attr("stop-color", "lightgreen")
-//     .attr("stop-opacity", 1);
-
-//   gradient.append("stop")
-//     .attr("offset", "100%")
-//     .attr("stop-color", "red")
-//     .attr("stop-opacity", 1);
-
-//   d3.select("#colorscaleSVG").append("rect")
-//     .attr("width", Keywidth)
-//     .attr("height", Keyheight)
-//     .style("fill", "url(#gradient)");
 
 d3.json("us.json", function(error, us) {
   if (error) throw error;
@@ -117,14 +85,6 @@ d3.json("us.json", function(error, us) {
     var schools = data;
 
     points = schools.map(function (school) {
-      /*
-      research.push(school["research"]);
-      numstudents.push(school["num_students"]);
-      studentstaff.push(school["student_staff_ratio"]); 
-      femalemale.push(school["female_male_ratio"]);
-      adminrate.push(school["ADM_RATE"]);
-      tuition.push(school["TUITFTE"]);
-      */
 
       return {
         x: Number(school["LONGITUDE"]),  
@@ -174,8 +134,6 @@ d3.json("us.json", function(error, us) {
           answers[i][x].min = d3.round(min + x * rangeLength, 3); //left off here
           answers[i][x].max = d3.round(min + (x + 1) * rangeLength, 3);
         }
-
-
       }
     }
 
@@ -209,56 +167,32 @@ d3.json("us.json", function(error, us) {
     .attr("class", "point")
     .attr("cx", function(d) { var coords=projection([d.x,d.y]);return coords[0]; })
     .attr("cy", function(d) { var coords=projection([d.x,d.y]);return coords[1]; })
-    .attr("r", 4)
-    .style("fill","#43FF43")
-    .style("opacity", 0.7)
+    .attr("r", 5)
+    .style("fill","green")
+    .style("opacity", 0.9)
     // .attr("transform","translate(" + zoomTranslate + ")scale(" + zoomScale + ")")
     .on("mouseover", function (d) {
       d3.select("#sidebar").attr("class", "sidebar col-xs-2")
       .html('<li class = \'collegename\'>' + d.label +'</li> <li>Avg. Tuition After Fin. Aid: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>' + '<li>Student-Staff Ratio: '+d.studentstaffratio +':1 </li>' 
         + '<li>Female-Male Ratio: ' + d.femalemaleratio +':'  + (100 -  d.femalemaleratio )  + ' </li>'); 
+      d3.select(this).transition().attr("r",9);
+    })
+    .on("mouseout", function(d){
+      d3.select(this).transition().attr("r",5);
     });
-
     return questions;
   });
 });
 
+d3.select("#usmap").on("click", function () {
+  zoom.translate([0,0]).scale(1);
+  svg.selectAll("circle").transition().attr("transform","translate(0,0)scale(1)");
+  svg.selectAll("path").transition().attr("transform","translate(0,0)scale(1)");
+  svg.selectAll(".legend").transition().attr("transform","translate(0,0)scale(1)");
+  zoomScale = 1;
+  zoomTranslate = [0,0];
 
-
-
-// d3.select("#center").on("click", function () {
-//   /*console.log(zoomScale);
-//   console.log(zoomTranslate);*/
-//   zoom.translate([0,0]).scale(1);
-//   svg.selectAll("circle").transition().attr("transform","translate(0,0)scale(1)");
-//   svg.selectAll("path").transition().attr("transform","translate(0,0)scale(1)");
-//   svg.selectAll(".legend").transition().attr("transform","translate(0,0)scale(1)");
-//   zoomScale = 1;
-//   zoomTranslate = [0,0];
-
-// });
-
-//QUIZ
-
-// d3.select("#schoolsizeSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
-//   pref[0] = value;
-// }));
-// d3.select("#staffratioSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
-//   pref[1] = value;
-// }));
-// d3.select("#femaleratioSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
-//   pref[2]=value;
-// }));
-// d3.select("#tuitionSlider").call(d3.slider().value(50).on("slide",function(evt, value) {
-//   pref[3] = value;
-// }));
-// d3.select("#selectivitySlider").call(d3.slider().on("slide",function(evt, value) {
-//   pref[4] = value;
-// }));
-// d3.select("#researchSlider").call(d3.slider().on("slide",function(evt,value) {
-//   pref[5]=value;
-// }));
-
+});
 
 var choicesArray = [];
 var nextQuestion = function(num) 
@@ -326,7 +260,7 @@ var nextQuestion = function(num)
 };
 
 //Quiz End
-var pref=[5,5,5,5,5,5];
+var pref=[6,6,6,6,6,6];
 function rankings(){
   ranks=[];
   for (var i=0;i<tuition.length;i++){
@@ -339,12 +273,10 @@ function rankings(){
     ranks.push(sum);
   };
   circles = g.selectAll(".point");
-  console.log(circles);
   circles.each(function (d,i){
-    //console.log(cir);
     circle=d3.select(this);
     circle.transition().style("fill", function(d){
-     var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["#43FF43","rgb(255, 0, 0)"]);
+     var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["#2eb82e","#FF8000"]);
        return spectrum(ranks[i]);
    });
  });
@@ -374,4 +306,3 @@ document.getElementById('researchSlider').addEventListener('change', function(){
   pref[5]=parseInt(this.value);
   rankings();
 });
-
