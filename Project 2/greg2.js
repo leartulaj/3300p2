@@ -277,13 +277,13 @@ var nextQuestion = function(num)
     var input = label.append("input").attr("type", "radio").attr("name", question["topic"]).attr("value", [choice.min, choice.max, i]  + "")
     .on("click", function(e, idx) 
     {
-      //choicesArray.push(choices[idx]);
       choicesArray.push([d3.select(this).attr("value")]); 
       if (num < questions.length-1)
         nextQuestion(num+1);
       else{
         document.getElementById("quizFinished").style.display = "block";
         quiz.html("");
+        rankings();
       }
 
     });
