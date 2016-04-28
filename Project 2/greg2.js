@@ -6,7 +6,7 @@ var femalemale = [];
 var adminrate = [];
 var research = [];
 var tuition = [];
-var ranks = [];
+var ranks = [11.142202473750228, 7.548946504951697, 10.766775407572368, 11.032085092868606, 6.974767881557504, 7.562457688011652, 6.278932837064303, 9.641421105456596, 8.420120685183281, 7.80508101668995, 8.082998388934707, 12.286897522656052, 7.165873098087352, 6.478385123224662, 10.0116242481951, 7.831876675148097, 8.852954609342483, 13.076876799011462, 9.823604365810356, 5.865585699072382, 9.476551569862938, 9.838091000643082, 9.828530738514084, 9.069290598924368, 7.8337009251422325, 8.301547770009904, 10.387920126146605, 6.405249066143194, 9.587815794012599, 8.188112692571947, 7.383409948715717, 6.858457733614321, 12.462191077150198, 8.51750780569138, 6.842607207209865, 9.03498712607119, 5.229429556310697, 6.119053474965897, 9.426805703427288, 12.048020645059914, 8.35784058438944, 5.592683361372759, 8.71931920131553, 6.176968817226355, 8.284462340156484, 7.580704230950316, 8.30611980733169, 5.941659606021966, 6.534575560549811, 8.182258482840215, 9.51599814308965, 9.339329421094583, 9.582330308615521, 5.651673951326123, 10.588368257276876, 9.712849490839638, 7.183913421369219, 5.201892619573426, 12.332452854298989, 4.479686046382458, 7.88552759217417, 9.299097618663009, 9.391956075274864, 8.539437394950143, 9.516172943434222, 9.366831541305023, 11.84164172623633, 9.053465926581133, 7.855282032975964];
 var quizArray = [numstudents, studentstaff, femalemale, tuition, adminrate, research,schoolname,ranks];
 
 //Helper Functions for Quiz
@@ -65,6 +65,7 @@ var svg = d3.select("#usmap")
 // .attr("height", height);
 
 var g = svg.append("g");
+var points;
 
 // var Keywidth = 10,
 //     Keyheight = 200;
@@ -315,13 +316,16 @@ function rankings(){
     };
     ranks.push(sum);
   };
-  // circles = g.selectAll(".point").data(points);
-  // circles.enter().transition().style("fill", function(d){
-  //   var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["#072C03","#2BFF10"]);
-  //   for (var i=0;i<tuition.length;i++){
-  //     spectrum(ranks[i]);
-  //   };
-  // });
+  circles = g.selectAll(".point");
+  circles.forEach(function (circle){
+    console.log(d3.select(circle));
+   d3.select(circle).transition().style("fill", function(d){
+     var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["red","#43FF43"]);
+     for (var i=0;i<tuition.length;i++){
+       return spectrum(ranks[i]);
+     };
+   });
+ });
 };
 
 document.getElementById('schoolsizeSlider').addEventListener('change', function(){
