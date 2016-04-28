@@ -203,6 +203,8 @@ d3.json("us.json", function(error, us) {
 
     circles = g.selectAll(".point").data(points);
 
+
+
     circles.enter().append("circle")
     .attr("class", "point")
     .attr("cx", function(d) { var coords=projection([d.x,d.y]);return coords[0]; })
@@ -212,7 +214,9 @@ d3.json("us.json", function(error, us) {
     .style("opacity", 0.7)
     // .attr("transform","translate(" + zoomTranslate + ")scale(" + zoomScale + ")")
     .on("mouseover", function (d) {
-      d3.select("#sidebar").html(d.label+'<li>Tuition: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>');
+      d3.select("#sidebar").attr("class", "sidebar col-xs-2")
+      .html('<li class = \'collegename\'>' + d.label +'</li> <li>Avg. Tuition After Fin. Aid: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>' + '<li>Student-Staff Ratio: '+d.studentstaffratio +':1 </li>' 
+        + '<li>Female-Male Ratio: ' + d.femalemaleratio +':'  + (100 -  d.femalemaleratio )  + ' </li>'); 
     });
 
     return questions;
@@ -296,6 +300,24 @@ var nextQuestion = function(num)
       var maleratiotwo = 100 - Number(subtring[2]); 
       label.append("span").html(" " + subtring[0] + ":" + maleratioone + " " + subtring[1] + " " + subtring[2] + ":" + maleratiotwo ); //prints choice
     }
+    else if(num == 5){
+  if(i == 0){
+    label.append("span").html(" Not Research Focused"); //prints choice
+  }
+  if(i == 1){
+    label.append("span").html(" Slightly Research Focused"); 
+  }
+  if(i == 2){ 
+    label.append("span").html(" Somewhat Research Focused"); 
+  }
+  if(i == 3){
+    label.append("span").html(" Moderately Research Focused"); 
+  }
+  if(i == 4){
+    label.append("span").html(" Very Research Focused"); //prints choice
+  }
+
+}
     else{
         label.append("span").html(" " + string); //prints choice
     }

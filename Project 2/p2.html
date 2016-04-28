@@ -101,7 +101,7 @@ input[type=range]{
 	stroke-linecap: round;
 	pointer-events: none;
 }
-#sidebar{
+.sidebar{
 	list-style-type: none;
 	border: black 1px solid;
 	text-align: center;
@@ -148,6 +148,10 @@ div#quizFinished{
 }
 a:link{
 	text-decoration: none;
+}
+.collegename{
+	font-size: 12pt;
+	font-weight: bold;
 }
 </style>
 </head>
@@ -202,11 +206,11 @@ a:link{
 		<div id = "legend">
 			<p> <span class = "bold">KEY</span> </p>
 			<p> <span class = "bold">Color: </span>Rank</p>
-			<p>20 <span id = "colorscale" class = "inline"></span> 1</p>			
+			<p>69 <span id = "colorscale" class = "inline"></span> 1</p>			
 		</div>
 		<div id = "map" class = "row"> 
 			<svg id ="usmap"></svg>
-			<ul id = "sidebar" class ="col-xs-2">
+			<ul id = "sidebar">
 			</ul>
 		</div>
 
