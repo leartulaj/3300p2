@@ -203,6 +203,8 @@ d3.json("us.json", function(error, us) {
 
     circles = g.selectAll(".point").data(points);
 
+
+
     circles.enter().append("circle")
     .attr("class", "point")
     .attr("cx", function(d) { var coords=projection([d.x,d.y]);return coords[0]; })
@@ -213,7 +215,8 @@ d3.json("us.json", function(error, us) {
     // .attr("transform","translate(" + zoomTranslate + ")scale(" + zoomScale + ")")
     .on("mouseover", function (d) {
       d3.select("#sidebar").attr("class", "sidebar col-xs-2")
-      .html(d.label+'<li>Avg. Tuition After Fin. Aid: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>');
+      .html('<li class = \'collegename\'>' + d.label +'</li> <li>Avg. Tuition After Fin. Aid: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>' + '<li>Student-Staff Ratio: '+d.studentstaffratio +':1 </li>' 
+        + '<li>Female-Male Ratio: ' + d.femalemaleratio +':'  + (100 -  d.femalemaleratio )  + ' </li>'); 
     });
 
     return questions;
