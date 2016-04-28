@@ -199,7 +199,6 @@ d3.json("us.json", function(error, us) {
 
   
     //Quiz End
-    var spectrum = d3.scale.linear().domain([48000000,135000000]).range(["#072C03","#2BFF10"]);
 
     circles = g.selectAll(".point").data(points);
 
@@ -304,18 +303,25 @@ var nextQuestion = function(num)
 };
 
 //Quiz End
-pref=[5,5,5,5,5,5]
+var pref=[5,5,5,5,5,5];
 function rankings(){
   ranks=[];
   for (var i=0;i<tuition.length;i++){
+    var sum=0;
     var comp=[(Math.abs(numstudents[i]-(parseInt(choicesArray[0][0].split(",")[0])+parseInt(choicesArray[0][0].split(",")[1])/2))/Math.max.apply(null, numstudents)),(Math.abs(studentstaff[i]-(choicesArray[1][0].split(",")[0])+parseInt(choicesArray[1][0].split(",")[1])/2)/Math.max.apply(null, studentstaff)),(Math.abs(femalemale[i]-(parseInt(choicesArray[2][0].split(",")[0])+parseInt(choicesArray[2][0].split(",")[1])/2))/Math.max.apply(null, femalemale)),(Math.abs(tuition[i]-(parseInt(choicesArray[3][0].split(",")[0])+parseInt(choicesArray[3][0].split(",")[1])/2))/Math.max.apply(null, tuition)),(Math.abs(adminrate[i]-(parseInt(choicesArray[4][0].split(",")[0])+parseInt(choicesArray[4][0].split(",")[1])/2))/Math.max.apply(null, adminrate)),(Math.abs(research[i]-(parseInt(choicesArray[5][0].split(",")[0])+parseInt(choicesArray[5][0].split(",")[1])/2))/Math.max.apply(null, research))];
     for (var j=0;j<6;j++){
-      var sum=0;
-      comp[j]=comp[j]*pref[j];
+      comp[j]=(comp[j]*pref[j]);
       sum+=comp[j];
     };
     ranks.push(sum);
   };
+  // circles = g.selectAll(".point").data(points);
+  // circles.enter().transition().style("fill", function(d){
+  //   var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["#072C03","#2BFF10"]);
+  //   for (var i=0;i<tuition.length;i++){
+  //     spectrum(ranks[i]);
+  //   };
+  // });
 };
 
 document.getElementById('schoolsizeSlider').addEventListener('change', function(){
