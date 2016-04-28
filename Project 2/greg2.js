@@ -340,14 +340,12 @@ function rankings(){
   };
   circles = g.selectAll(".point");
   console.log(circles);
-  circles.forEach(function (cir){
-    circle = d3.select(cir);
-    console.log(circle);
+  circles.each(function (d,i){
+    //console.log(cir);
+    circle=d3.select(this);
     circle.transition().style("fill", function(d){
      var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["red","#43FF43"]);
-     for (var i=0;i<tuition.length;i++){
        return spectrum(ranks[i]);
-     };
    });
  });
 };
