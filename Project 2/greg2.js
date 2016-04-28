@@ -317,9 +317,11 @@ function rankings(){
     ranks.push(sum);
   };
   circles = g.selectAll(".point");
-  circles.forEach(function (circle){
-    console.log(d3.select(circle));
-   d3.select(circle).transition().style("fill", function(d){
+  console.log(circles);
+  circles.forEach(function (cir){
+    circle = d3.select(cir);
+    console.log(circle);
+    circle.transition().style("fill", function(d){
      var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["red","#43FF43"]);
      for (var i=0;i<tuition.length;i++){
        return spectrum(ranks[i]);
