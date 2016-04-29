@@ -16,32 +16,6 @@
 	<!-- Google Fonts -->
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'>
 	<style>
-/*		.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-/* Creates a small triangle extender for the tooltip */
-/*.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.8);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}*/
-/* Style northward tooltips differently */
-/*.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}*/
 body{
 	background: #f6f6f6;
 	font-family: 'Open Sans Condensed', sans-serif;
@@ -132,7 +106,7 @@ p {
     margin: 0 0 0px;
 }
 span#colorscale{
-	background: linear-gradient(-90deg, #43FF43, rgb(255, 0, 0)); 
+	background: linear-gradient(-90deg, #00e60f, #f65ff2);
 	height: 10; 
 	width: 100;
 }
@@ -165,7 +139,7 @@ a:link{
 
 	<!-- Inspired By Which City Should You Live In? project -->
 	<div id = "quiz" class = "col-xs-12">
-		<a href = "#" onclick="nextQuestion(0); return false;">Start Choosing Prefrences</a>
+		<a href = "#" onclick="nextQuestion(0); return false;">Start Choosing Preferences</a>
 	</div>
 
 	<div id  = "quizFinished">
@@ -214,7 +188,6 @@ a:link{
 			<ul id = "sidebar">
 			</ul>
 		</div>
-		<!-- New -->
 		<div>
 			<table id = "table">
 				<!--
