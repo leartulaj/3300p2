@@ -9,7 +9,7 @@ var tuition = [];
 var ranks = [11.142202473750228, 7.548946504951697, 10.766775407572368, 11.032085092868606, 6.974767881557504, 7.562457688011652, 6.278932837064303, 9.641421105456596, 8.420120685183281, 7.80508101668995, 8.082998388934707, 12.286897522656052, 7.165873098087352, 6.478385123224662, 10.0116242481951, 7.831876675148097, 8.852954609342483, 13.076876799011462, 9.823604365810356, 5.865585699072382, 9.476551569862938, 9.838091000643082, 9.828530738514084, 9.069290598924368, 7.8337009251422325, 8.301547770009904, 10.387920126146605, 6.405249066143194, 9.587815794012599, 8.188112692571947, 7.383409948715717, 6.858457733614321, 12.462191077150198, 8.51750780569138, 6.842607207209865, 9.03498712607119, 5.229429556310697, 6.119053474965897, 9.426805703427288, 12.048020645059914, 8.35784058438944, 5.592683361372759, 8.71931920131553, 6.176968817226355, 8.284462340156484, 7.580704230950316, 8.30611980733169, 5.941659606021966, 6.534575560549811, 8.182258482840215, 9.51599814308965, 9.339329421094583, 9.582330308615521, 5.651673951326123, 10.588368257276876, 9.712849490839638, 7.183913421369219, 5.201892619573426, 12.332452854298989, 4.479686046382458, 7.88552759217417, 9.299097618663009, 9.391956075274864, 8.539437394950143, 9.516172943434222, 9.366831541305023, 11.84164172623633, 9.053465926581133, 7.855282032975964];
 var quizArray = [numstudents, studentstaff, femalemale, tuition, adminrate, research,schoolname,ranks];
 
-//Helper Functions for Quiz
+//Helper Functions 
 function getMaxOfArray(numArray) {
   return Math.max.apply(null, numArray);
 }
@@ -34,19 +34,19 @@ var key = d3.select("#colorscale").append("svg")
 .attr("id", "colorscaleSVG");
 //Key End
 
-var width = screen.width*0.4,  height = screen.width/2, centered;
+var width = screen.width,  height = screen.width * (3/4), centered;
 
 var projection = d3.geo.albersUsa()
-.scale(width*2.3)
-.translate([width, height *0.45]);
+.scale(width * .9)
+.translate([width / 2.5, height / 3]);
 
 var path = d3.geo.path()
 .projection(projection);
 var zoom = d3.behavior.zoom()
-.translate([0,0])
-.scale(1)
-.scaleExtent([1,15])
-.on("zoom", zoomed);
+  .translate([0,0])
+  .scale(1)
+  .scaleExtent([1,15])
+  .on("zoom", zoomed);
 
 
 var zoomTranslate = [0,0];
@@ -163,7 +163,7 @@ d3.json("us.json", function(error, us) {
     }
     questions = JSON.parse(json);
 
-    
+  
     //Quiz End
 
     circles = g.selectAll(".point").data(points);
@@ -182,7 +182,7 @@ d3.json("us.json", function(error, us) {
       d3.select("#sidebar").attr("class", "sidebar col-xs-2")
       .html('<li class = \'collegename\'>' + d.label +'</li> <li>Avg. Tuition After Fin. Aid: $'+d.tuition+'</li>'+'<li>Admission Rate: '+(d.adrate * 100).toFixed(1)+'%'+'</li>'+'<li>Student Population: '+d.population+'</li>' + '<li>Student-Staff Ratio: '+d.studentstaffratio +':1 </li>' 
         + '<li>Female-Male Ratio: ' + d.femalemaleratio +':'  + (100 -  d.femalemaleratio )  + ' </li>'); 
-      d3.select(this).transition().attr("r",12);
+      d3.select(this).transition().attr("r",9);
     })
     .on("mouseout", function(d){
       d3.select(this).transition().attr("r",5);
@@ -233,8 +233,8 @@ var nextQuestion = function(num)
         //formating for student-teacher ratios
         var subtring = string.split(/ /);
         label.append("span").html(" " + subtring[0] + ":1 " + subtring[1] + " " + subtring[2] + ":1 "  ); //prints choice
-      }
-      else if(num == 2){
+    }
+    else if(num == 2){
       //formating for female-male ratios
       var subtring = string.split(/ /);
       var maleratioone = 100 - Number(subtring[0]); 
@@ -242,7 +242,7 @@ var nextQuestion = function(num)
       label.append("span").html(" " + subtring[0] + ":" + maleratioone + " " + subtring[1] + " " + subtring[2] + ":" + maleratiotwo ); //prints choice
     }
     else if(num == 5){
-      if(i == 0){
+  if(i == 0){
     label.append("span").html(" Not Research Focused"); //prints choice
   }
   if(i == 1){
@@ -259,12 +259,12 @@ var nextQuestion = function(num)
   }
 
 }
-else{
+    else{
         label.append("span").html(" " + string); //prints choice
-      }
     }
-    return choicesArray;
-  };
+  }
+  return choicesArray;
+};
 
 //Quiz End
 var pref=[6,6,6,6,6,6];
@@ -272,16 +272,24 @@ function rankings(){
   ranks=[];
   for (var i=0;i<tuition.length;i++){
     var sum=0;
-    var scores=[];
     var comp=[(Math.abs(numstudents[i]-(parseInt(choicesArray[0][0].split(",")[0])+parseInt(choicesArray[0][0].split(",")[1])/2))/Math.max.apply(null, numstudents)),(Math.abs(studentstaff[i]-(choicesArray[1][0].split(",")[0])+parseInt(choicesArray[1][0].split(",")[1])/2)/Math.max.apply(null, studentstaff)),(Math.abs(femalemale[i]-(parseInt(choicesArray[2][0].split(",")[0])+parseInt(choicesArray[2][0].split(",")[1])/2))/Math.max.apply(null, femalemale)),(Math.abs(tuition[i]-(parseInt(choicesArray[3][0].split(",")[0])+parseInt(choicesArray[3][0].split(",")[1])/2))/Math.max.apply(null, tuition)),(Math.abs(adminrate[i]-(parseInt(choicesArray[4][0].split(",")[0])+parseInt(choicesArray[4][0].split(",")[1])/2))/Math.max.apply(null, adminrate)),(Math.abs(research[i]-(parseInt(choicesArray[5][0].split(",")[0])+parseInt(choicesArray[5][0].split(",")[1])/2))/Math.max.apply(null, research))];
     for (var j=0;j<6;j++){
-      comp[j]=(comp[j]*(pref[j]*pref[j]));
-      scores.push(comp[j]);
+      comp[j]=(comp[j]*pref[j]);
       sum+=comp[j];
     };
-    points[i].score = sum;
+    //add score to points array
+    for(var x = 0; x < points.length; x++)
+    {
+        if(points[x].label ==  schoolname[i])
+        {
+          console.log(sum);
+          points[x].score = sum;
+        }
+    }
+
     ranks.push(sum);
   };
+  console.log("stop");
   //New
   points.sort(compare);
   function rankSchools(num)
@@ -304,14 +312,15 @@ function rankings(){
     }
   }
   rankSchools(10);
+  //End Dont forget helper
   circles = g.selectAll(".point");
   circles.each(function (d,i){
     circle=d3.select(this);
     circle.transition().style("fill", function(d){
-     var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["#00e60f","#f65ff2"]);
-     return spectrum(ranks[i]);
+     var spectrum = d3.scale.linear().domain([Math.min.apply(null,ranks),Math.max.apply(null,ranks)]).range(["#2eb82e","#FF8000"]);
+       return spectrum(ranks[i]);
    });
-  });
+ });
 };
 
 document.getElementById('schoolsizeSlider').addEventListener('change', function(){
@@ -338,16 +347,3 @@ document.getElementById('researchSlider').addEventListener('change', function(){
   pref[5]=parseInt(this.value);
   rankings();
 });
-
-// var svg2 = d3.select("svg");
-// var height = svg2.attr("height");
-// var width = svg2.attr("width");
-// var padding = 30;
-// var xScale = d3.scale.linear().domain([1, 70]).range([padding, width]);
-// var yScale = d3.scale.linear().domain([0, ]).range([height - padding, 0]);
-// var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
-// var yAxis = d3.svg.axis().scale(yScale).orient("left");
-// svg.append("g").attr("transform", "translate(0," + (height - padding) + ")").attr("class", "axis")
-// .call(xAxis);
-// svg.append("g").attr("transform", "translate(" + padding + ",0)").attr("class", "axis")
-// .call(yAxis);
