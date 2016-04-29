@@ -111,6 +111,17 @@ d3.json("us.json", function(error, us) {
       return ! isNaN(point.x) && ! isNaN(point.y);
     });
 
+    for(var i = 0; i < points.length; i ++)
+    {
+      if((i+1) != 10){
+        var value = i + 1; 
+        var option = d3.select("#dropdown").append("option").html(value).attr("value", value);
+      }else{
+        var value = i + 1; 
+        var option = d3.select("#dropdown").append("option").html(value).attr("value", value).attr("selected", "selected").attr("id", "ten");
+      }
+    }
+
     //Quiz
     points.forEach(function(school) {
       schoolname.push(school.label);
@@ -311,7 +322,7 @@ function rankings(){
       cell2.innerHTML = points[68-i].label;
     }
   }
-  rankSchools(10);
+  rankSchools(d3.select("#dropdown").property("value"));
   circles = g.selectAll(".point");
   circles.each(function (d,i){
     circle=d3.select(this);
