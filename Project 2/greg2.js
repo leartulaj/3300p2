@@ -34,11 +34,11 @@ var key = d3.select("#colorscale").append("svg")
 .attr("id", "colorscaleSVG");
 //Key End
 
-var width = screen.width,  height = screen.width * (3/4), centered;
+var width = screen.width*0.4,  height = screen.width/2, centered;
 
 var projection = d3.geo.albersUsa()
-.scale(width * .9)
-.translate([width / 2.5, height / 3]);
+.scale(width*2.3)
+.translate([width, height *0.45]);
 
 var path = d3.geo.path()
 .projection(projection);
