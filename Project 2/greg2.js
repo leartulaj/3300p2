@@ -308,7 +308,7 @@ function rankings(){
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
       cell1.innerHTML = rowNum;
-      cell2.innerHTML = points[i].label;
+      cell2.innerHTML = points[68-i].label;
     }
   }
   rankSchools(10);
